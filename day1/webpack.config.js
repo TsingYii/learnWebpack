@@ -56,12 +56,13 @@ module.exports = {
     },
     module: {
         rules: [
+            {test : /\.js$/,use: 'eslint-loader'},
             { test: /\.(css|less)$/, use: [
                 MiniCssExtractPlugin.loader,
                 'css-loader',
                 'less-loader',
                 "postcss-loader"
-                ] 
+            ] 
             },
         ]
     }

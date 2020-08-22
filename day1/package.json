@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
-    "dev": "webpack-dev-server --open home.html"
+    "dev": "webpack-dev-server --openPage home.html"
   },
   "repository": {
     "type": "git",
@@ -22,9 +22,13 @@
     "autoprefixer": "^9.8.6",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^4.2.1",
+    "decamelize": "^4.0.0",
+    "eslint": "^7.7.0",
+    "eslint-loader": "^4.0.2",
     "html-webpack-plugin": "^4.3.0",
     "less": "^3.12.2",
     "less-loader": "^6.2.0",
+    "locate-path": "^6.0.0",
     "mini-css-extract-plugin": "^0.10.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
