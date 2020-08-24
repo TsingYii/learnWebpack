@@ -1,9 +1,11 @@
-const {path,__dirname} = require('path')
+/* eslint-disable no-undef */
+const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const webpack = require('webpack')
 
 module.exports = {
     optimization: {
@@ -47,6 +49,9 @@ module.exports = {
                 collapseWhitespace: true
             }
         }),
+        new webpack.ProvidePlugin({
+            $:'jquery'
+        })
     ],
     devServer: {//调试配置
         contentBase: path.join(__dirname, "dist"),
@@ -54,9 +59,19 @@ module.exports = {
         port: 9000,
         hot: true
     },
+    externals: {
+        jquery: 'jQuery'
+    },
     module: {
         rules: [
-            {test : /\.js$/,use: 'eslint-loader'},
+            // { test : /\.js$/,
+            //     use: 'eslint-loader',
+            //     exclude: [
+            //         /lib/,
+            //         /node_modules/
+            //     ],
+            //     include: path.resolve(__dirname,'./src')
+            // },
             { test: /\.(css|less)$/, use: [
                 MiniCssExtractPlugin.loader,
                 'css-loader',
@@ -64,6 +79,13 @@ module.exports = {
                 "postcss-loader"
             ] 
             },
+            // {
+            //     test: require.resolve('jquery'),
+            //     loader: 'expose-loader',
+            //     options: {
+            //         exposes: ['$', 'jQuery'],
+            //     },
+            // },
         ]
     }
 };

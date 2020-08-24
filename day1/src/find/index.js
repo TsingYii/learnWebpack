@@ -1,5 +1,5 @@
-const {log} = console
-log('阿娟大宝贝')
-document.getElementById('say').innerText = "阿娟大宝贝"
+/* eslint-disable no-undef */
+console.log($);
+$('#say').text("hello find")
 require('../style/common.css')
 require('../style/find.less')

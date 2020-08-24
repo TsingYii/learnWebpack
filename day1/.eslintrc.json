@@ -1,9 +1,10 @@
 {
     "parserOptions": {
         "ecmaVersion": 6,
-        "sourceType": "script",
+        "sourceType": "module",
         "ecmaFeatures": {}
     },
+    "ignorePatterns": ["lib"],
     "rules": {
         "indent": 2,
         "constructor-super": 2,
