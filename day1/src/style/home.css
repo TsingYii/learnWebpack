@@ -4,4 +4,7 @@
     font-style: italic;
     background-color: darkgreen;
     color: red;
+    background: url("../image/star.jpg");
+    height: 300px;
+    width: 300px;
 }

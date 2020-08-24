@@ -6,7 +6,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack')
-
 module.exports = {
     optimization: {
         minimize: true,
@@ -19,35 +18,34 @@ module.exports = {
     },//入口
     output: {//出口
         filename: '[name].js',
-        path: path.resolve(__dirname,'dist')
+        path: path.resolve(__dirname,'dist'),
+        // publicPath: 'http://www.yf.com'
     },
     plugins: [//插件
         new CleanWebpackPlugin(),
-        new MiniCssExtractPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].css',
+        }),
         new OptimizeCssAssetsPlugin(),
         new HtmlWebpackPlugin({
             title: '主页',
-            template: './src/mytemplate.html',
+            template: './src/mytemplate.ejs',
             filename: 'home.html',
             templateParameters: {
                 des: '我是主页'
             },
             chunks:['home'],
-            minify:{
-                collapseWhitespace: true
-            }
+            minify:false
         }),
         new HtmlWebpackPlugin({
             title: '发现页',
             filename: 'find.html',
-            template: './src/mytemplate.html',
+            template: './src/mytemplate.ejs',
             templateParameters: {
                 des: '我是发现页'
             },
             chunks:['find'],
-            minify:{
-                collapseWhitespace: true
-            }
+            minify:false
         }),
         new webpack.ProvidePlugin({
             $:'jquery'
@@ -59,19 +57,8 @@ module.exports = {
         port: 9000,
         hot: true
     },
-    externals: {
-        jquery: 'jQuery'
-    },
     module: {
         rules: [
-            // { test : /\.js$/,
-            //     use: 'eslint-loader',
-            //     exclude: [
-            //         /lib/,
-            //         /node_modules/
-            //     ],
-            //     include: path.resolve(__dirname,'./src')
-            // },
             { test: /\.(css|less)$/, use: [
                 MiniCssExtractPlugin.loader,
                 'css-loader',
@@ -79,13 +66,19 @@ module.exports = {
                 "postcss-loader"
             ] 
             },
-            // {
-            //     test: require.resolve('jquery'),
-            //     loader: 'expose-loader',
-            //     options: {
-            //         exposes: ['$', 'jQuery'],
-            //     },
-            // },
+            {
+                test: /\.(jpg|png|webp|jpeg|gif)$/,
+                use: {
+                    loader:'url-loader',
+                    options:{
+                        esModule:false,
+                        limit:9000,
+                        name: 'img/[name].[hash:8].[ext]',
+                        publicPath: 'http://www.yf.com'
+                    },
+                   
+                }
+            }
         ]
     }
 };
